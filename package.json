@@ -1,0 +1,54 @@
+{
+  "name": "@naguralab/core",
+  "version": "0.1.0",
+  "description": "Parsers for proprietary analytical instrument data files (Agilent ChemStation .ch/.uv/.ms), for browser and Node.",
+  "license": "LGPL-3.0-or-later",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "COPYING",
+    "COPYING.LESSER",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "reference": "python3 tools/make_reference.py"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.0"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3"
+  },
+  "homepage": "https://naguralab.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naguralab/nagura-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/naguralab/nagura-core/issues"
+  },
+  "keywords": [
+    "chromatography",
+    "agilent",
+    "chemstation",
+    "openlab",
+    "hplc",
+    "gc-ms",
+    "file-format",
+    "parser"
+  ]
+}

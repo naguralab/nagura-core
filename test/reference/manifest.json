@@ -1,0 +1,77 @@
+[
+ {
+  "data": "brown.D/dad1.uv",
+  "reference": "brown.D__dad1.uv.json"
+ },
+ {
+  "data": "brown.D/dad1A.ch",
+  "reference": "brown.D__dad1A.ch.json"
+ },
+ {
+  "data": "brown.D/dad1B.ch",
+  "reference": "brown.D__dad1B.ch.json"
+ },
+ {
+  "data": "brown.D/dad1C.ch",
+  "reference": "brown.D__dad1C.ch.json"
+ },
+ {
+  "data": "brown.D/dad1D.ch",
+  "reference": "brown.D__dad1D.ch.json"
+ },
+ {
+  "data": "brown.D/dad1E.ch",
+  "reference": "brown.D__dad1E.ch.json"
+ },
+ {
+  "data": "orange.D/ADC1A.CH",
+  "reference": "orange.D__ADC1A.CH.json"
+ },
+ {
+  "data": "orange.D/MSD1.MS",
+  "reference": "orange.D__MSD1.MS.json"
+ },
+ {
+  "data": "red.D/ADC1A.CH",
+  "reference": "red.D__ADC1A.CH.json"
+ },
+ {
+  "data": "red.D/DAD1.UV",
+  "reference": "red.D__DAD1.UV.json"
+ },
+ {
+  "data": "red.D/DAD1B.ch",
+  "reference": "red.D__DAD1B.ch.json"
+ },
+ {
+  "data": "red.D/DAD1C.ch",
+  "reference": "red.D__DAD1C.ch.json"
+ },
+ {
+  "data": "teal.dx",
+  "reference": "teal.dx__DAD1I.UV.json",
+  "member": "DAD1I.UV"
+ },
+ {
+  "data": "teal.dx",
+  "reference": "teal.dx__DAD1H.CH.json",
+  "member": "DAD1H.CH"
+ },
+ {
+  "data": "teal.dx",
+  "reference": "teal.dx__DAD1A.CH.json",
+  "member": "DAD1A.CH"
+ },
+ {
+  "data": "yellow.D/FID1A.ch",
+  "reference": "yellow.D__FID1A.ch.json"
+ },
+ {
+  "data": "yellow.D/data.ms",
+  "reference": "yellow.D__data.ms.json"
+ },
+ {
+  "data": "yellow.D/dataSim.ms",
+  "reference": "yellow.D__dataSim.ms.json"
+ }
+]
