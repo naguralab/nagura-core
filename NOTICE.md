@@ -27,3 +27,11 @@ against [spc-parser](https://github.com/cheminfo/spc-parser) 2.1.1 (MIT), which 
 used only to generate reference files and is not part of this package. The test
 fixtures in `/fixtures/spc` are synthetic, written by `tools/make_spc_fixtures.py`
 for this project.
+
+The AIA/ANDI and netCDF readers in `src/aia/` and `src/netcdf/` are written from
+Unidata's published netCDF classic format specification and the public ANDI
+variable names. Their tests compare against the Unidata netCDF library through
+[netCDF4-python](https://github.com/Unidata/netcdf4-python) (MIT), used only to
+generate reference files. The fixtures in `/fixtures/aia` are synthetic, written
+by `tools/make_aia_fixtures.py` with [SciPy](https://scipy.org) (BSD) for this
+project.

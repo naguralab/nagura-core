@@ -8,3 +8,5 @@ export * from './batch.js';
 export { parseJcamp, isJcampBytes, isJcampPath } from './jcamp/jcamp.js';
 export { parseFiles, isSupportedPath } from './formats.js';
 export { parseSpc, readSpc, isSpcBytes, isSpcPath, type SpcFile, type SpcHeader, type SpcSubfile } from './galactic/spc.js';
+export { parseAia, isAiaBytes, isAiaPath } from './aia/aia.js';
+export { readNetcdf, isNetcdfBytes, type NcFile, type NcVariable } from './netcdf/netcdf.js';

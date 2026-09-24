@@ -405,7 +405,7 @@ export function parseMs(name: string, bytes: Uint8Array, options: MsOptions = {}
   return { name, detector: 'MS', times: scans.times, ylabels, data, unit: 'counts', metadata };
 }
 
-interface RawScans {
+export interface RawScans {
   times: Float64Array;
   /** Pair count per scan. */
   counts: Uint32Array;
@@ -461,7 +461,7 @@ function rint(x: number): number {
 }
 
 /** Bins every scan's pairs onto the m/z bins occupied anywhere in the file. */
-function binPairs(scans: RawScans, binWidth: number): { ylabels: Float64Array; data: Float64Array } {
+export function binPairs(scans: RawScans, binWidth: number): { ylabels: Float64Array; data: Float64Array } {
   if (!(binWidth > 0)) throw new ParseError(`binWidth must be positive, got ${binWidth}.`);
   const bins = new Float64Array(scans.mz.length);
   const occupied = new Set<number>();

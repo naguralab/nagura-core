@@ -95,3 +95,31 @@ only to single-subfile files, and [spc-io](https://github.com/h2020charisma/spc-
 0.2.1 (MIT) agrees with Nagura Lab. spc-io also matches every other new-format
 file it can read except `NDR0002.SPC`, where it uses the subfile exponent of a
 single-subfile file (4x too small by SPC.H; spc-parser and Nagura Lab agree).
+
+## AIA / ANDI netCDF
+
+`aia/` holds synthetic files written by `tools/make_aia_fixtures.py` (made-up
+peaks, no third-party rights): an HPLC chromatogram (CDF-1, times from delay
+and interval, peak table), a GC-FID run (64-bit offset, explicit uneven
+retention times in minutes), GC-MS scans twice (plain, and with the pairs as
+interleaved record variables) and an ELSD run in CDF-5.
+
+    pip install scipy numpy netCDF4
+    python3 tools/make_aia_fixtures.py        # rewrites fixtures/aia (byte-for-byte reproducible)
+    npm run reference:aia
+
+References in the core's `test/reference-aia/` come from Unidata's netCDF C
+library through netCDF4-python (MIT), independent of both the writer (SciPy)
+and the TypeScript reader. The tests also check each file's own values.
+
+Real files (not committed: their licenses are unclear) from chromConverterExtraTests
+and PyMassSpec's example data (their files only, no code):
+
+    git clone --depth 1 https://github.com/ethanbass/chromConverterExtraTests /tmp/cce
+    git clone --depth 1 https://github.com/PyMassSpec/PyMassSpec /tmp/pyms
+    mkdir -p /tmp/aiaall && cp /tmp/cce/inst/*.CDF /tmp/pyms/pyms-data/*.cdf /tmp/aiaall/
+    python3 tools/make_aia_reference.py /tmp/aiaall /tmp/aiaref
+    NAGURA_EXTRA_AIA_REFERENCE=/tmp/aiaref npm test
+
+Expected result (24-09-2026): all 10 files pass. `gc01_0812_066.cdf` states
+m/z ranges its own scans exceed, so only its range check is skipped.

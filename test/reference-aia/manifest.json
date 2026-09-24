@@ -1,0 +1,22 @@
+[
+ {
+  "data": "elsd-cdf5.cdf",
+  "reference": "elsd-cdf5.cdf.json"
+ },
+ {
+  "data": "gc-fid-retention.cdf",
+  "reference": "gc-fid-retention.cdf.json"
+ },
+ {
+  "data": "gcms-record-vars.cdf",
+  "reference": "gcms-record-vars.cdf.json"
+ },
+ {
+  "data": "gcms-scans.cdf",
+  "reference": "gcms-scans.cdf.json"
+ },
+ {
+  "data": "hplc-uv.cdf",
+  "reference": "hplc-uv.cdf.json"
+ }
+]

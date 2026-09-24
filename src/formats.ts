@@ -1,4 +1,5 @@
 import { isAgilentDataFile, parseAgilentRuns, type ParseOptions } from './agilent/run.js';
+import { isAiaPath, parseAia } from './aia/aia.js';
 import { isSpcBytes, isSpcPath, parseSpc } from './galactic/spc.js';
 import { isJcampBytes, isJcampPath, parseJcamp } from './jcamp/jcamp.js';
 import type { InputFile, Run } from './types.js';
@@ -9,13 +10,13 @@ import type { InputFile, Run } from './types.js';
  * an OpenLab CDS archive and a JCAMP-DX text file).
  */
 export function isSupportedPath(path: string): boolean {
-  return isAgilentDataFile(path) || isJcampPath(path) || isSpcPath(path);
+  return isAgilentDataFile(path) || isJcampPath(path) || isSpcPath(path) || isAiaPath(path);
 }
 
 /**
  * Decodes dropped files, whatever the format: each file is recognized by its
  * contents and handed to the matching decoder. Agilent files are grouped
- * into runs per `.D` folder; every JCAMP-DX and SPC file is a run of its own.
+ * into runs per `.D` folder; every JCAMP-DX, SPC and AIA file is a run of its own.
  */
 export function parseFiles(files: InputFile[], options: ParseOptions = {}): Run[] {
   const agilent: InputFile[] = [];
@@ -44,6 +45,12 @@ export function parseFiles(files: InputFile[], options: ParseOptions = {}): Run[
         runs.push(parseSpc(file.path, file.bytes));
       } catch (err) {
         runs.push(failed(file, 'Galactic SPC', err));
+      }
+    } else if (isAiaPath(file.path)) {
+      try {
+        runs.push(parseAia(file.path, file.bytes, options));
+      } catch (err) {
+        runs.push(failed(file, 'AIA/ANDI', err));
       }
     } else {
       agilent.push(file);

@@ -1,7 +1,7 @@
 {
   "name": "@naguralab/core",
   "version": "0.1.0",
-  "description": "Parsers for analytical instrument data files (Agilent ChemStation, OpenLab CDS, JCAMP-DX, Galactic SPC), for browser and Node.",
+  "description": "Parsers for analytical instrument data files (Agilent ChemStation, OpenLab CDS, JCAMP-DX, Galactic SPC, AIA/ANDI netCDF), for browser and Node.",
   "license": "LGPL-3.0-or-later",
   "type": "module",
   "main": "./dist/index.js",
@@ -25,7 +25,8 @@
     "test": "vitest run",
     "reference": "python3 tools/make_reference.py",
     "reference:jcamp": "node tools/make_jcamp_reference.mjs",
-    "reference:spc": "node tools/make_spc_reference.mjs"
+    "reference:spc": "node tools/make_spc_reference.mjs",
+    "reference:aia": "python3 tools/make_aia_reference.py"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
@@ -57,6 +58,9 @@
     "infrared",
     "spc",
     "grams",
-    "raman"
+    "raman",
+    "andi",
+    "netcdf",
+    "gc-ms"
   ]
 }
