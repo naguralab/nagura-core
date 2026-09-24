@@ -75,6 +75,11 @@ export class BinaryReader {
     return this.view.getFloat32(offset, false);
   }
 
+  f32le(offset: number): number {
+    this.check(offset, 4);
+    return this.view.getFloat32(offset, true);
+  }
+
   f64be(offset: number): number {
     this.check(offset, 8);
     return this.view.getFloat64(offset, false);

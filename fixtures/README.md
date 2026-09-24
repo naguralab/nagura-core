@@ -58,3 +58,40 @@ Expected result: all pass except five files. jcampconverter cannot read
 and `example_compound_file.jdx`; these were checked against the files' own
 values and the `jcamp` Python reader instead. `xyinc2.jdx` declares 298 points
 but holds 350, and is refused on purpose.
+
+## Galactic SPC
+
+`spc/` holds synthetic files written by `tools/make_spc_fixtures.py` (made-up
+bands, no third-party rights): one per storage form the decoder handles. IR
+with evenly spaced X and a log block, Raman with an X array, UV-Vis kinetics
+(12 subfiles, even Z), NIR with 16-bit values and a different exponent per
+subfile, an HPLC chromatogram (`.cgm`, 32-bit values, minutes), GC-MS with an X
+array per subfile, a directory and custom axis labels, and the old 0x4D format.
+
+    python3 tools/make_spc_fixtures.py        # rewrites fixtures/spc
+    npm install --no-save spc-parser@2.1.1
+    npm run reference:spc
+
+References in the core's `test/reference-spc/` come from spc-parser 2.1.1 (MIT).
+The tests also check each file against its own structure (subfile indexes, first
+and last X, log and directory offsets, the log text's point counts).
+
+Real instrument files (Thermo's SPC sample files and others; not committed
+because their license is unclear) come from the test sets of spc-parser (MIT)
+and [spc](https://github.com/rohanisaac/spc) (GPL-3.0; its files only, no code):
+
+    git clone --depth 1 https://github.com/cheminfo/spc-parser /tmp/spc-parser
+    git clone --depth 1 https://github.com/rohanisaac/spc /tmp/spc
+    mkdir -p /tmp/spcall && cp /tmp/spc/test_data/*.[sS][pP][cC] /tmp/spcall/
+    cp /tmp/spc-parser/src/galactic/__tests__/data/*.[sS][pP][cC] /tmp/spcall/
+    node tools/make_spc_reference.mjs /tmp/spcall /tmp/spcref
+    NAGURA_EXTRA_SPC_REFERENCE=/tmp/spcref NAGURA_EXTRA_SPC_DIR=/tmp/spcall npm test
+
+Expected result (24-09-2026): all 31 files pass. spc-parser cannot read
+`test_input.spc` (its log block), so that file is covered by the structure
+checks only. For `m_evenz.spc` spc-parser takes a subfile exponent of 0 to mean
+"use the main exponent" and halves one subfile; SPC.H applies the main exponent
+only to single-subfile files, and [spc-io](https://github.com/h2020charisma/spc-io)
+0.2.1 (MIT) agrees with Nagura Lab. spc-io also matches every other new-format
+file it can read except `NDR0002.SPC`, where it uses the subfile exponent of a
+single-subfile file (4x too small by SPC.H; spc-parser and Nagura Lab agree).

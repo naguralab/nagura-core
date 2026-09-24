@@ -1,0 +1,30 @@
+[
+ {
+  "data": "hplc-int32.cgm",
+  "reference": "hplc-int32.cgm.json"
+ },
+ {
+  "data": "ir-absorbance.spc",
+  "reference": "ir-absorbance.spc.json"
+ },
+ {
+  "data": "ms-xyxy.spc",
+  "reference": "ms-xyxy.spc.json"
+ },
+ {
+  "data": "nir-int16.spc",
+  "reference": "nir-int16.spc.json"
+ },
+ {
+  "data": "raman-old-format.spc",
+  "reference": "raman-old-format.spc.json"
+ },
+ {
+  "data": "raman-xvals.spc",
+  "reference": "raman-xvals.spc.json"
+ },
+ {
+  "data": "uvvis-kinetics.spc",
+  "reference": "uvvis-kinetics.spc.json"
+ }
+]

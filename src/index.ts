@@ -7,3 +7,4 @@ export * from './csv.js';
 export * from './batch.js';
 export { parseJcamp, isJcampBytes, isJcampPath } from './jcamp/jcamp.js';
 export { parseFiles, isSupportedPath } from './formats.js';
+export { parseSpc, readSpc, isSpcBytes, isSpcPath, type SpcFile, type SpcHeader, type SpcSubfile } from './galactic/spc.js';

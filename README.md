@@ -11,6 +11,7 @@ Parsers for analytical instrument data files, in TypeScript, for the browser and
 | Agilent ChemStation | `.ms` | Single-quadrupole MS, scan and SIM | GC and LC, partial files |
 | Agilent OpenLab CDS 2 | `.dx` | Result archive (zip) with UV spectra and signals | CDS 2.x |
 | JCAMP-DX (IUPAC, any vendor) | `.jdx`, `.dx`, `.jcm` | IR, Raman, UV-Vis, NMR and mass spectra, peak tables, compound files | 4.24, 5.x; AFFN, PAC, SQZ, DIF, DUP. Not yet: NTUPLES |
+| Galactic SPC (GRAMS, many vendors) | `.spc`, `.cgm` | Spectra of any kind, chromatograms, series and maps, GC-MS | New (0x4B) and old (0x4D) format; float, 32- and 16-bit Y; every X layout |
 
 ## Use
 
@@ -26,13 +27,15 @@ const run = parseDx('injection.dx', new Uint8Array(readFileSync('injection.dx'))
 for (const s of run.signals) console.log(s.name, overviewTrace(s).values.length);
 ```
 
-`parseFiles(files)` recognizes each file by its contents (`.dx` is both an OpenLab archive and a JCAMP-DX text file) and groups them into runs: one per `.D` folder, `.dx` archive or JCAMP-DX file. Every signal is a matrix of rows × ylabels (wavelength in nm, m/z, or a single channel), with the unit and header metadata. Rows are retention times in minutes for chromatograms; spectra carry an `xAxis` (for example wavenumber in cm⁻¹, marked `reversed` for IR) and rows in ascending order.
+`parseFiles(files)` recognizes each file by its contents (`.dx` is both an OpenLab archive and a JCAMP-DX text file) and groups them into runs: one per `.D` folder, `.dx` archive, JCAMP-DX or SPC file (an SPC file with several subfiles gives one signal per subfile). Every signal is a matrix of rows × ylabels (wavelength in nm, m/z, or a single channel), with the unit and header metadata. Rows are retention times in minutes for chromatograms; spectra carry an `xAxis` (for example wavenumber in cm⁻¹, marked `reversed` for IR) and rows in ascending order.
 
 ## How it is verified
 
 Every Agilent decoder is compared value by value with [rainbow](https://github.com/evanyeyeye/rainbow), the open-source Python parser whose format work this package ports: shape, axes, every row and column sum, sampled spectra and header metadata, on public test files (`fixtures/`). Version 181 `.ch` files were also checked against [GC2ASM](https://github.com/ifpen/GC2ASM).
 
 JCAMP-DX is checked two independent ways: against [jcampconverter](https://github.com/cheminfo/jcampconverter) 10.0.2, and against what each file states about itself (the declared point count, the first value, and the X value that starts every data line). Where jcampconverter is wrong (a DUP right after a check value, a factor followed by a comment, `E+03` exponents), the tests rely on the file's own checks and say why.
+
+Galactic SPC is written from Galactic's published format specification and checked against [spc-parser](https://github.com/cheminfo/spc-parser) 2.1.1, and against what each file states about itself (subfile indexes, first and last X, the log and directory offsets, the point counts in the log text). The committed SPC files are synthetic, made by `tools/make_spc_fixtures.py`; public instrument files are checked the same way (`fixtures/README.md`).
 
 Where the references disagree, the tests say so and why.
 
@@ -41,6 +44,7 @@ npm install
 npm test                               # against the committed references
 pip install rainbow-api && npm run reference   # regenerate Agilent references
 npm install --no-save jcampconverter@10.0.2 && npm run reference:jcamp   # JCAMP-DX references
+npm install --no-save spc-parser@2.1.1 && npm run reference:spc          # SPC references
 ```
 
 See `fixtures/README.md` for the extended test set.
@@ -51,4 +55,4 @@ Designed and checked by an analytical chemist, written with the help of an AI as
 
 ## License
 
-LGPL-3.0-or-later. See `COPYING`, `COPYING.LESSER` and `NOTICE.md` (credits to rainbow, fflate and the JCAMP-DX test data). The license lets closed-source software use this package, as long as changes to the package itself are shared.
+LGPL-3.0-or-later. See `COPYING`, `COPYING.LESSER` and `NOTICE.md` (credits to rainbow, fflate, the JCAMP-DX test data and the SPC references). The license lets closed-source software use this package, as long as changes to the package itself are shared.
