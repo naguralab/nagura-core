@@ -5,3 +5,5 @@ export { parseAgilentFile, parseAgilentRuns, isAgilentDataFile, type ParseOption
 export * from './ops.js';
 export * from './csv.js';
 export * from './batch.js';
+export { parseJcamp, isJcampBytes, isJcampPath } from './jcamp/jcamp.js';
+export { parseFiles, isSupportedPath } from './formats.js';

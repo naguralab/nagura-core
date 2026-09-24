@@ -1,0 +1,26 @@
+[
+ {
+  "data": "dupdec1.jdx",
+  "reference": "dupdec1.jdx.json"
+ },
+ {
+  "data": "dupinc1.jdx",
+  "reference": "dupinc1.jdx.json"
+ },
+ {
+  "data": "fixinc4.jdx",
+  "reference": "fixinc4.jdx.json"
+ },
+ {
+  "data": "pacdec1.jdx",
+  "reference": "pacdec1.jdx.json"
+ },
+ {
+  "data": "pktab2.jdx",
+  "reference": "pktab2.jdx.json"
+ },
+ {
+  "data": "sqzdupd1.jdx",
+  "reference": "sqzdupd1.jdx.json"
+ }
+]

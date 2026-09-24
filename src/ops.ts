@@ -1,11 +1,29 @@
-import type { Signal } from './types.js';
+import { TIME_AXIS, type Axis, type Signal } from './types.js';
 
-/** A one-dimensional series over a signal's retention times. */
+/** A one-dimensional series over a signal's rows (retention times, or a spectral axis). */
 export interface Trace {
   label: string;
   times: Float64Array;
   values: Float64Array;
   unit: string;
+  /** Absent for chromatograms (retention time in minutes). */
+  xAxis?: Axis;
+  sticks?: boolean;
+}
+
+/** The row axis of a signal or trace. */
+export function axisOf(x: { xAxis?: Axis }): Axis {
+  return x.xAxis ?? TIME_AXIS;
+}
+
+/** An axis as a column or axis title, e.g. `Wavenumber (cm⁻¹)`. */
+export function axisTitle(axis: Axis): string {
+  return axis.unit ? `${axis.label} (${axis.unit})` : axis.label;
+}
+
+/** Axis identity, for deciding whether traces can share one plot. */
+export function axisKey(axis: Axis): string {
+  return `${axis.label}|${axis.unit}`;
 }
 
 export function columns(signal: Signal): number {
@@ -62,7 +80,7 @@ export function overviewTrace(signal: Signal): Trace {
   if (n === 1) {
     const wl = signal.ylabels[0]!;
     const label = Number.isNaN(wl) ? signal.name : `${signal.name} ${fmt(wl)} nm`;
-    return { label, times: signal.times, values: sumColumns(signal, 0, 0), unit: signal.unit };
+    return { label, times: signal.times, values: sumColumns(signal, 0, 0), unit: signal.unit, xAxis: signal.xAxis, sticks: signal.sticks };
   }
   if (signal.detector === 'MS') {
     return { label: `${signal.name} TIC`, times: signal.times, values: sumColumns(signal, 0, n - 1), unit: signal.unit };

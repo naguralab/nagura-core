@@ -1,7 +1,7 @@
 {
   "name": "@naguralab/core",
   "version": "0.1.0",
-  "description": "Parsers for proprietary analytical instrument data files (Agilent ChemStation .ch/.uv/.ms), for browser and Node.",
+  "description": "Parsers for analytical instrument data files (Agilent ChemStation, OpenLab CDS, JCAMP-DX), for browser and Node.",
   "license": "LGPL-3.0-or-later",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,7 +23,8 @@
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "reference": "python3 tools/make_reference.py"
+    "reference": "python3 tools/make_reference.py",
+    "reference:jcamp": "node tools/make_jcamp_reference.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
@@ -49,6 +50,9 @@
     "hplc",
     "gc-ms",
     "file-format",
-    "parser"
+    "parser",
+    "jcamp-dx",
+    "spectroscopy",
+    "infrared"
   ]
 }
